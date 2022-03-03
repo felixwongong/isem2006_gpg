@@ -29,6 +29,7 @@ def FindTotalCost(orders, discounts):
         return totalOrders - totalDiscounts + 50
     return totalOrders - totalDiscounts
 
+print("Hello world")
 
 """
 Util

@@ -31,6 +31,8 @@ def FindTotalCost(orders, discounts):
 
 print("Hello world")
 print("hii")
+print("hello")
+
 
 """
 Util

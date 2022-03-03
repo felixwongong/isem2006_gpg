@@ -17,6 +17,7 @@ def FindCheckDigit(staffNum, orderNum, alpha):
         alpha2ModDictionary[alpha]
     return int(checkDigit)
 
+# Find the total cost of orders combine with discount
 
 def FindTotalCost(orders, discounts):
     totalOrders = 0
@@ -29,19 +30,24 @@ def FindTotalCost(orders, discounts):
         return totalOrders - totalDiscounts + 50
     return totalOrders - totalDiscounts
 
+
 print("Hello world")
 print("hii")
 print("hello")
-print ("Ivan typing")
+print("Ivan typing")
 
 """
 Util
 """
+
+
 def addSum(values):
     sum = 0
     for val in values:
         sum += val
     return sum
+
+
 """"""
 
 ## print(FindCheckDigit('123456', '567878', "B"))

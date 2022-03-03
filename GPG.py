@@ -40,7 +40,6 @@ print("Ivan typing")
 Util
 """
 
-
 def addSum(values):
     sum = 0
     for val in values:

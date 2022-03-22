@@ -12,15 +12,14 @@ def GetLastOrderID():
 
 
 if __name__ == '__main__':
-    if len(argv) > 1 and argv[1] == 'dev':
-        print(f"{'=' * 65}\nProgram started at development environment. \n{'=' * 65}\n")
+    print(f"{'=' * 65}\nProgram started at development environment. \n{'=' * 65}\n")
 
-        orderData = jsonWrapper.LoadFile('/testdata/order.json')
-        peopleData = jsonWrapper.LoadFile('/testdata/people.json')
+    orderData = jsonWrapper.LoadFile('/testdata/order.json')
+    peopleData = jsonWrapper.LoadFile('/testdata/people.json')
 
-        staffID, items, discounts = itemgetter(
-            'staffID', "items", "discounts")(orderData[0])
-        customerID = itemgetter('id')(peopleData[0])
+    staffID, items, discounts = itemgetter(
+        'staffID', "items", "discounts")(orderData[0])
+    customerID = itemgetter('id')(peopleData[0])
 
     lastOrderID = GetLastOrderID()
 

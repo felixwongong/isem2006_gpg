@@ -3,41 +3,41 @@
         "staffID": "135234",
         "items": [
             {
-                "itemID": "0407",
+                "id": "0407",
+                "price": 10,
                 "quantity": 5
             },
             {
-                "itemID": "0934",
+                "id": "0934",
+                "price": 700,
                 "quantity": 1
             },
             {
-                "itemID": "9843",
+                "id": "9843",
+                "price": 70,
                 "quantity": 5
             }
         ],
-        "discount1": 0.005,
-        "discount2": 0.01
+        "discounts": [0.005, 0.01]
     },
     {
         "staffID": "",
         "items": [
             {
-                "itemID": "",
+                "id": "",
                 "quantity": 0
             }
         ],
-        "discount1": 0.005,
-        "discount2": 0.01
+        "discounts": [0.005, 0.01]
     },
     {
         "staffID": "",
         "items": [
             {
-                "itemID": "",
+                "id": "",
                 "quantity": 0
             }
         ],
-        "discount1": 0.005,
-        "discount2": 0.01
+        "discounts": [0.005, 0.01]
     }
 ]

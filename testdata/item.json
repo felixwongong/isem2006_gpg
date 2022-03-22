@@ -1,0 +1,27 @@
+[
+    {
+        "id": "0407",
+        "name": "Chocolate",
+        "price": "10"
+    },
+    {
+        "id": "1234",
+        "name": "Apple",
+        "price": "5"
+    },
+    {
+        "id": "0934",
+        "name": "Guitar",
+        "price": "700"
+    },
+    {
+        "id": "2365",
+        "name": "Toy",
+        "price": "300"
+    },
+    {
+        "id": "9843",
+        "name": "Coffee",
+        "price": "70"
+    }
+]

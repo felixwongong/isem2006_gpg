@@ -1,0 +1,43 @@
+[
+    {
+        "staffID": "135234",
+        "items": [
+            {
+                "itemID": "0407",
+                "quantity": 5
+            },
+            {
+                "itemID": "0934",
+                "quantity": 1
+            },
+            {
+                "itemID": "9843",
+                "quantity": 5
+            }
+        ],
+        "discount1": 0.005,
+        "discount2": 0.01
+    },
+    {
+        "staffID": "",
+        "items": [
+            {
+                "itemID": "",
+                "quantity": 0
+            }
+        ],
+        "discount1": 0.005,
+        "discount2": 0.01
+    },
+    {
+        "staffID": "",
+        "items": [
+            {
+                "itemID": "",
+                "quantity": 0
+            }
+        ],
+        "discount1": 0.005,
+        "discount2": 0.01
+    }
+]

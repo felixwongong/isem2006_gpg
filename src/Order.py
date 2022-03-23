@@ -1,6 +1,7 @@
 import math
 from util.misc import a2zz
 from util.TextTable import TextTable
+from util.consoleInputter import OptionInput as optInput
 from datetime import datetime
 from Customer import Customer
 
@@ -11,10 +12,8 @@ class Order:
         self.staffNum, self.customerNum = staffNum, customerNum
         self.items, self.discounts = items, discounts
         self.date = datetime.now()
-        self.modMethod = input(
-            f"Select mod method for order number {'-'.join(self.orderNum)} (A, B, C, D)\n").strip().upper()
-        if self.modMethod not in ('A', 'B', 'C', 'D'):
-            self.modMethod = 'A'
+        self.modMethod = optInput(
+            f"Select mod method for order number {'-'.join(self.orderNum)}", ['A', 'B', 'C', 'D'], True)
 
     def _FindCheckDigit(self, alpha):
         alpha2ModDictionary = {

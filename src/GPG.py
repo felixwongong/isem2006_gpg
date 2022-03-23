@@ -74,14 +74,14 @@ if __name__ == '__main__':
         lastOrderID = cart.CreateOrderInCart(lastOrderID, *orderEl)
 
     previewOption = optInput(
-        "Do you want to preview the audit content? (y/n) \n", ['y', 'n'])
+        "Do you want to preview the audit content?", ['y', 'n'])
     if previewOption == "y":
         print(ConsoleMsg("Preview"))
         print(cart.GetStrOutput())
 
     IOWrapper.WriteFileJSON('/output/audit.json', cart.GetJSONObj())
     WriteFileOption = optInput(
-        "Do you want to write to a txt audit file? (y/n) \n", ['y', 'n'])
+        "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":
         IOWrapper.WriteFile('/output/audit.txt', cart.GetStrOutput())
     print("Byebye~")

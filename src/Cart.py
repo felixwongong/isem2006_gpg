@@ -1,7 +1,6 @@
 from Order import Order
 import hashlib
 from util.TextTable import TextTable
-from util import IOWrapper
 
 
 class Cart:

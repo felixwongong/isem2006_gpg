@@ -1,0 +1,27 @@
+Number_of_orders         3                        
+Hash_total_of_orders     e3b0c                    
+
+Order 0 details -- A135234A0000013(5)
+-------------------------------------
+Order_Number             A-000001                 
+Agency_number            135234                   
+Modulus_number           5                        
+Total                    1085.7                   
+Hash_Total               11184                    
+
+Order 1 details -- A656565A00000210(8)
+--------------------------------------
+Order_Number             A-000002                 
+Agency_number            656565                   
+Modulus_number           8                        
+Total                    7938.6                   
+Hash_Total               47948                    
+
+Order 2 details -- A656565A0000031(2)
+-------------------------------------
+Order_Number             A-000003                 
+Agency_number            656565                   
+Modulus_number           2                        
+Total                    191.9                    
+Hash_Total               1385                     
+

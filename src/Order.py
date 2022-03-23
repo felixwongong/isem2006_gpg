@@ -1,5 +1,8 @@
 import math
 from util.misc import a2zz
+from util.TextTable import TextTable
+from datetime import datetime
+from Customer import Customer
 
 
 class Order:
@@ -7,8 +10,10 @@ class Order:
         self.orderNum = Order._GetNum(prevOrderNum)
         self.staffNum, self.customerNum = staffNum, customerNum
         self.items, self.discounts = items, discounts
-        self.modMethod = input("Select mod method (A, B, C, D)\n").strip()
-        if self.modMethod not in ('A', 'B', 'C', 'D'):
+        self.date = datetime.now()
+        self.modMethod = input(
+            f"Select mod method for order number {'-'.join(self.orderNum)} (A, B, C, D)\n").strip()
+        if self.modMethod.upper() not in ('A', 'B', 'C', 'D'):
             self.modMethod = 'A'
 
     def _FindCheckDigit(self, alpha):
@@ -18,7 +23,6 @@ class Order:
             "C": 7,
             "D": 6
         }
-        print(f'Modulus method ({alpha}) is used.')
         sum = 0
         for i in range(len(self.staffNum)):
             sum += (int(self.staffNum[i]) * int(self.orderNum[1][i]))
@@ -44,11 +48,19 @@ class Order:
         idStr = str(id).rjust(6, '0')
         return (lead, idStr)
 
+    def GetCustomer(self):
+        print(Customer.name_address(self.customerNum))
+
+    def GetOrderNum(self):
+        return '-'.join(self.orderNum)
 # region Calculate total price of order
+
     def _GetTotal(self):
         subtotal = self._CalcSubtotal()
         delivery = 0 if subtotal >= 600 else 50
-        return subtotal - self._CalcDiscounts(subtotal) + delivery
+        total = subtotal - self._CalcDiscounts(subtotal) + delivery
+        mall = total * 0.002 if total >= 800 else 0
+        return round(total + mall, 1)
 
     def _CalcSubtotal(self):
         subtotal = 0
@@ -62,14 +74,33 @@ class Order:
             discountAmount += subtotal * discount
         return discountAmount
 
-    def _GetHashTotal(self):
+    def GetHashTotal(self):
         hashTotal = 0
         for item in self.items:
             hashTotal += int(item['id'])
-        return hashTotal
+        return str(hashTotal)
 # endregion
 
     def code(self):
         checkDigit = self._FindCheckDigit(self.modMethod)
         lead, idStr = self.orderNum
         return f'{lead}{self.staffNum}{self.modMethod}{idStr}{len(self.items)}({checkDigit})'
+
+    def GetOutputTable(self):
+        table = TextTable(2, 25)
+        table.AddRow(["Order_Number", '-'.join(self.orderNum)])\
+             .AddRow(["Agency_number", self.staffNum])\
+             .AddRow(["Modulus_number", self._FindCheckDigit(self.modMethod)])\
+             .AddRow(["Total", self._GetTotal()])\
+             .AddRow(["Hash_Total", self.GetHashTotal()])
+
+        return table
+
+    def GetJSONObj(self):
+        JSONObj = {
+            "id": '-'.join(self.orderNum),
+            "staffID": self.staffNum,
+            "items": self.items,
+            "discounts": self.discounts,
+        }
+        return JSONObj

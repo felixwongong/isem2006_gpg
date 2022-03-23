@@ -1,14 +1,17 @@
 [
     {
         "id": "135234",
-        "name": "Felix"
+        "name": "Felix",
+        "address": "123 Main St"
     },
     {
         "id": "098765",
-        "name": "Berkley"
+        "name": "Berkley",
+        "address": "456 Main Street"
     },
     {
         "id": "656565",
-        "name": "Whiskey"
+        "name": "Whiskey",
+        "address": "555 Main Street"
     }
 ]

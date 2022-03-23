@@ -10,7 +10,7 @@ from Cart import Cart
 
 
 def GetLastOrderID():
-    lastOutput = IOWrapper.LoadFileJSON('/output/output.json')
+    lastOutput = IOWrapper.LoadFileJSON('/output/audit.json')
     if not lastOutput:
         print("No previous output is found, defaulting to A-000000\n")
         return 'A-000000'

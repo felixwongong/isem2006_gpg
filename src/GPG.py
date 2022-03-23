@@ -49,8 +49,8 @@ def ProdFetchData():
             print("-" * 65)
             item = {}
             item["id"] = elInput("Item ID:".ljust(25))
-            item["price"] = elInput("Price:".ljust(25))
-            item["quantity"] = elInput("Quantity:".ljust(25))
+            item["price"] = elInput("Price:".ljust(25), int)
+            item["quantity"] = elInput("Quantity:".ljust(25), int)
             items.append(item)
         print("-" * 65)
         discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
@@ -84,3 +84,4 @@ if __name__ == '__main__':
         "Do you want to write to a txt audit file? (y/n) \n", ['y', 'n'])
     if WriteFileOption == "y":
         IOWrapper.WriteFile('/output/audit.txt', cart.GetStrOutput())
+    print("Byebye~")

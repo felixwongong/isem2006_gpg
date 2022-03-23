@@ -26,10 +26,14 @@ class Cart:
         self.orderList.append(order)
 
     def GenerateTotalHash(self):
-        orderHashStr = ''
+        orderHash = 0
         for order in self.orderList:
-            orderHashStr.join(order.GetHashTotal())
-        encoded = orderHashStr.encode()
+            asciiSum = 0
+            code = order.code()
+            for c in code:
+                asciiSum += ord(c)
+            orderHash ^= asciiSum
+        encoded = str(orderHash).encode()
         fullHash = hashlib.sha256(encoded).hexdigest()
         self.hash = fullHash[0:5]
 

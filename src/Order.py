@@ -12,8 +12,8 @@ class Order:
         self.items, self.discounts = items, discounts
         self.date = datetime.now()
         self.modMethod = input(
-            f"Select mod method for order number {'-'.join(self.orderNum)} (A, B, C, D)\n").strip()
-        if self.modMethod.upper() not in ('A', 'B', 'C', 'D'):
+            f"Select mod method for order number {'-'.join(self.orderNum)} (A, B, C, D)\n").strip().upper()
+        if self.modMethod not in ('A', 'B', 'C', 'D'):
             self.modMethod = 'A'
 
     def _FindCheckDigit(self, alpha):

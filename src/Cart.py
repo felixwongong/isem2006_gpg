@@ -69,6 +69,3 @@ class Cart:
                                      .AddHeading(f'Order {i} details -- {self.orderList[i].code()}')
             fullOutput += str(table)
         return fullOutput
-
-    def GetLastOrderNum(self):
-        return self.orderList[-1].orderNum

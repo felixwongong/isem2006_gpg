@@ -91,7 +91,7 @@ if __name__ == '__main__':
         if InvoiceOption == "y":
             print(Invoice.GetInvoice(order))
 
-    IOWrapper.WriteFile('/output/output.txt', cart.GetLastOrderNum())
+    IOWrapper.WriteFile('/output/output.txt', cart.orderNum)
     WriteFileOption = optInput(
         "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":

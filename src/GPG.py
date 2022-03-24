@@ -8,6 +8,8 @@ from util.consoleInputter import\
     ConsoleMsg
 from Cart import Cart
 from Item import Item
+from Customer import Customer
+from Invoice import Invoice
 
 
 def GetLastOrderID():
@@ -22,19 +24,19 @@ def DevFetchData():
     print('\n' + ConsoleMsg("In development stage") + '\n')
 
     orderData = db.GetAllData('order')
-    peopleData = db.GetAllData('people')
+    customerData = db.GetAllData('customer')
 
     numOrders = cInput('How many orders you want to test?\t', [
                        1, len(orderData)], int)
     ordersEl = []
 
     for i in range(numOrders):
-        staffID, orderItems, discounts = itemgetter(
-            'staffID', "items", "discounts")(orderData[i])
+        staffID, customerID, orderItems, discounts = itemgetter(
+            'staffID', "customerID", "items", "discounts")(orderData[i])
 
         items = mapItems(orderItems)
-        customerID = itemgetter('id')(peopleData[0])
-        ordersEl.append([staffID, customerID, items, discounts])
+        customer = db.GetObjectByID(customerID, 'customer', Customer)
+        ordersEl.append([staffID, customer, items, discounts])
     return ordersEl
 
 
@@ -65,8 +67,10 @@ def ProdFetchData():
         print("-" * 65)
         discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
         discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
+
         customerID = elInput("Customer ID:".ljust(25), int)
-        ordersEl.append([staffID, customerID, items, [discount1, discount2]])
+        customer = db.GetObjectByID(customerID, 'customer', Customer)
+        ordersEl.append([staffID, customer, items, [discount1, discount2]])
     return ordersEl
 
 
@@ -81,15 +85,13 @@ if __name__ == '__main__':
     lastOrderID = GetLastOrderID()
     cart = Cart(lastOrderID)
     for orderEl in ordersEl:
-        cart.CreateOrder(*orderEl)
+        order = cart.CreateOrder(*orderEl)
+        InvoiceOption = optInput(
+            "Do you want to check the invoice?", ['y', 'n'])
+        if InvoiceOption == "y":
+            print(Invoice.GetInvoice(order))
 
-    previewOption = optInput(
-        "Do you want to preview the audit content?", ['y', 'n'])
-    if previewOption == "y":
-        print(ConsoleMsg("Preview"))
-        print(cart.GetStrOutput())
-
-    IOWrapper.WriteFile('/output/output.txt', cart.GetDict())
+    IOWrapper.WriteFile('/output/output.txt', cart.GetLastOrderNum())
     WriteFileOption = optInput(
         "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":

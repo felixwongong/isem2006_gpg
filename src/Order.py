@@ -6,11 +6,11 @@ from Customer import Customer
 
 
 class Order:
-    def __init__(self, orderNum, staffNum, customerNum, items, discounts):
+    def __init__(self, orderNum, staffNum, customer, items, discounts):
         self.orderNum = orderNum
-        self.staffNum, self.customerNum = staffNum, customerNum
+        self.staffNum, self.customer = staffNum, customer
         self.items, self.discounts = items, discounts
-        self.date = datetime.now()
+        self.date = datetime.now().strftime("%Y-%m-%d")
         self.modMethod = optInput(
             f"Select mod method for order number {self.orderNum}", ['A', 'B', 'C', 'D'], True)
 
@@ -32,24 +32,23 @@ class Order:
         return int(checkDigit)
 
     def GetCustomer(self):
-        print(Customer.name_address(self.customerNum))
+        print(Customer.name_address(self.customer))
 
 # region Calculate total price of order
 
-    def _GetTotal(self):
-        subtotal = self._CalcSubtotal()
+    def GetTotal(self):
+        subtotal = self.CalcSubtotal()
         delivery = 0 if subtotal >= 600 else 50
-        total = subtotal - self._CalcDiscounts(subtotal) + delivery
-        self.mall = total * 0.002 if total >= 800 else 0
+        total = subtotal - self.CalcDiscounts(subtotal) + delivery
         return round(total, 1)
 
-    def _CalcSubtotal(self):
+    def CalcSubtotal(self):
         subtotal = 0
         for item in self.items:
             subtotal += (item['item'].price * item['quantity'])
         return subtotal
 
-    def _CalcDiscounts(self, subtotal):
+    def CalcDiscounts(self, subtotal):
         discountAmount = 0
         for discount in self.discounts:
             discountAmount += subtotal * discount
@@ -60,6 +59,14 @@ class Order:
         for item in self.items:
             hashTotal += int(item['item'].id)
         return str(hashTotal)
+
+    def mall(self):
+        total = self.GetTotal()
+        return round(total * 0.002 if total >= 800 else 0, 1)
+
+    def delivery(self):
+        return 0 if self.CalcSubtotal() >= 600 else 50
+
 # endregion
 
     def code(self):
@@ -72,7 +79,7 @@ class Order:
         table.AddRow(["Order_Number", self.orderNum])\
              .AddRow(["Agency_number", self.staffNum])\
              .AddRow(["Modulus_number", self._FindCheckDigit(self.modMethod)])\
-             .AddRow(["Total", self._GetTotal()])\
+             .AddRow(["Total", self.GetTotal()])\
              .AddRow(["Hash_Total", self.GetHashTotal()])
 
         return table

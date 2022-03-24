@@ -4,7 +4,8 @@ from util import IOWrapper
 def GetDataByID(id, filename):
     allData = IOWrapper.LoadFileJSON(f'/testdata/{filename}.json')
     for data in allData:
-        if data['id'] == id:
+
+        if data['id'] == str(id):
             return data
 
 

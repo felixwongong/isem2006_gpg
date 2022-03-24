@@ -8,17 +8,17 @@ class Cart:
     def __init__(self, lastOrderNum):
         self.orderList = []
         self.hash = ''
-        print(lastOrderNum)
         self.orderNum = lastOrderNum
 
 # region Create and add order
-    def CreateOrder(self, staffNum, customerNum, items, discounts):
+    def CreateOrder(self, staffNum, customer, items, discounts):
         for i in range(0, len(items), 10):
             itemsInOrder = items[i:i+10]
             self.orderNum = Cart._CalcOrderNum(self.orderNum)
-            order = Order(self.orderNum, staffNum, customerNum,
+            order = Order(self.orderNum, staffNum, customer,
                           itemsInOrder, discounts)
             self._AddOrder(order)
+            return order
 
     def _AddOrder(self, order):
         if(len(self.orderList) >= 10):
@@ -70,5 +70,5 @@ class Cart:
             fullOutput += str(table)
         return fullOutput
 
-    def GetDict(self):
+    def GetLastOrderNum(self):
         return self.orderList[-1].orderNum

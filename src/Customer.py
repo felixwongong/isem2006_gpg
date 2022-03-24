@@ -2,6 +2,11 @@ from util import IOWrapper
 
 
 class Customer:
+    def __init__(self, id, name, address):
+        self.id = id
+        self.name = name
+        self.address = address
+
     @staticmethod
     def name_address(customer_number):
         # will replace by db query if db is used

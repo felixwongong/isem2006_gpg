@@ -1,20 +1,18 @@
 [
     {
-        "staffID": "135234",
+        "staffID": "121212",
+        "customerID": "135234",
         "items": [
             {
                 "id": "0407",
-                "price": 10,
                 "quantity": 5
             },
             {
                 "id": "0934",
-                "price": 700,
                 "quantity": 1
             },
             {
                 "id": "9843",
-                "price": 70,
                 "quantity": 5
             }
         ],
@@ -25,60 +23,50 @@
     },
     {
         "staffID": "656565",
+        "customerID": "098765",
         "items": [
             {
                 "id": "2365",
-                "price": 300,
-                "quantity": 1
+                 "quantity": 1
             },
             {
                 "id": "3581",
-                "price": 400,
                 "quantity": 1
             },
             {
                 "id": "1052",
-                "price": 3000,
                 "quantity": 1
             },
             {
                 "id": "0934",
-                "price": 700,
                 "quantity": 1
             },
             {
                 "id": "9571",
-                "price": 90,
                 "quantity": 7
             },
             {
                 "id": "1234",
-                "price": 5,
                 "quantity": 5
             },
             {
                 "id": "9843",
-                "price": 70,
                 "quantity": 6
             },
             {
                 "id": "9361",
-                "price": 2000,
                 "quantity": 1
             },
             {
                 "id": "8275",
-                "price": 700,
                 "quantity": 1
             },
             {
                 "id": "1732",
-                "price": 200,
                 "quantity": 1
             },
             {
                 "id": "1385",
-                "price": 30,
                 "quantity": 5
             }
         ],

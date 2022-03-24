@@ -1,7 +1,7 @@
 class TextTable:
-    def __init__(self, colNum, zPadding):
+    def __init__(self, colNum, xPadding):
         self.tableContent = []
-        self.zPadding = zPadding
+        self.zPadding = xPadding
         self.colNum = colNum
         self.heading = ''
 

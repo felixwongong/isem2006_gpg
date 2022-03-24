@@ -1,7 +1,7 @@
 def ConsoleMsg(msg, width=65):
     msg = f'|{msg.center(width - 2)}|'
     border = '-' * width
-    return f'{border}\n{msg}\n{border}'
+    return f'{border}\n{msg}\n{border}\n'
 
 
 def ErrorlessInput(msg, type=str):
@@ -28,5 +28,5 @@ def OptionInput(msg, options, case_sensitive=False):
     while value not in [opt for opt in options]:
         print(f"Input should be choose between ({', '.join(options)})")
         value = ErrorlessInput(msg)
-        value = value.lower() if case_sensitive else value
+        value = value.lower() if not case_sensitive else value
     return value

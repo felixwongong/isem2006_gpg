@@ -25,7 +25,6 @@ if __name__ == '__main__':
         quantity = 1 if item['price'] > 100 else random.randint(1, 7)
         newItem = {
             "id": item['id'],
-            "price": item['price'],
             "quantity": quantity,
         }
         newOrder['items'].append(newItem)

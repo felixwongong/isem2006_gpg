@@ -11,6 +11,7 @@ class Cart:
         print(lastOrderNum)
         self.orderNum = lastOrderNum
 
+# region Create and add order
     def CreateOrder(self, staffNum, customerNum, items, discounts):
         for i in range(0, len(items), 10):
             itemsInOrder = items[i:i+10]
@@ -40,6 +41,7 @@ class Cart:
 
         idStr = str(id).rjust(6, '0')
         return f'{lead}-{idStr}'
+# endregion
 
     def GenerateTotalHash(self):
         orderHash = 0
@@ -68,10 +70,10 @@ class Cart:
             fullOutput += str(table)
         return fullOutput
 
-    def GetJSONObj(self):
+    def GetDict(self):
         if not self.hash:
             self.GenerateTotalHash()
         orders = []
         for order in self.orderList:
-            orders.append(order.GetJSONObj())
+            orders.append(order.GetDict())
         return orders

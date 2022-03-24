@@ -77,7 +77,7 @@ class Order:
 
         return table
 
-    def GetJSONObj(self):
+    def GetDict(self):
         JSONObj = {
             "id": self.orderNum,
             "staffID": self.staffNum,

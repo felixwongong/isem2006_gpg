@@ -79,7 +79,7 @@ if __name__ == '__main__':
         print(ConsoleMsg("Preview"))
         print(cart.GetStrOutput())
 
-    IOWrapper.WriteFileJSON('/output/output.json', cart.GetJSONObj())
+    IOWrapper.WriteFileJSON('/output/output.json', cart.GetDict())
     WriteFileOption = optInput(
         "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":

@@ -1,6 +1,6 @@
 from operator import itemgetter
 from sys import argv
-from util import IOWrapper, misc
+from util import IOWrapper, misc, db
 from util.consoleInputter import\
     ErrorlessInput as elInput,\
     ClampInput as cInput,\
@@ -20,13 +20,14 @@ def GetLastOrderID():
 def DevFetchData():
     print('\n' + ConsoleMsg("In development stage") + '\n')
 
-    orderData = IOWrapper.LoadFileJSON('/testdata/order.json')
-    peopleData = IOWrapper.LoadFileJSON('/testdata/people.json')
+    orderData = db.GetAllData('order')
+    peopleData = db.GetAllData('people')
+    itemData = db.GetAllData('item')
 
     numOrders = cInput('How many orders you want to test?\t', [
                        1, len(orderData)], int)
     ordersEl = []
-
+    print(db.GetDataByID('0407', 'item'))
     for i in range(numOrders):
         staffID, items, discounts = itemgetter(
             'staffID', "items", "discounts")(orderData[i])

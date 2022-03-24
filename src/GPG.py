@@ -7,14 +7,15 @@ from util.consoleInputter import\
     OptionInput as optInput,\
     ConsoleMsg
 from Cart import Cart
+from Item import Item
 
 
 def GetLastOrderID():
-    lastOutput = IOWrapper.LoadFileJSON('/output/output.json')
+    lastOutput = IOWrapper.ReadFile('/output/output.txt')
     if not lastOutput:
         print("No previous output is found, defaulting to A-000000\n")
         return 'A-000000'
-    return lastOutput[len(lastOutput)-1]["id"]
+    return lastOutput
 
 
 def DevFetchData():
@@ -22,18 +23,27 @@ def DevFetchData():
 
     orderData = db.GetAllData('order')
     peopleData = db.GetAllData('people')
-    itemData = db.GetAllData('item')
 
     numOrders = cInput('How many orders you want to test?\t', [
                        1, len(orderData)], int)
     ordersEl = []
-    print(db.GetDataByID('0407', 'item'))
+
     for i in range(numOrders):
-        staffID, items, discounts = itemgetter(
+        staffID, orderItems, discounts = itemgetter(
             'staffID', "items", "discounts")(orderData[i])
+
+        items = mapItems(orderItems)
         customerID = itemgetter('id')(peopleData[0])
         ordersEl.append([staffID, customerID, items, discounts])
     return ordersEl
+
+
+def mapItems(orderItems):
+    items = []
+    for orderItem in orderItems:
+        item = db.GetObjectByID(orderItem['id'], 'item', Item)
+        items.append({"item": item, "quantity": orderItem['quantity']})
+    return items
 
 
 def ProdFetchData():
@@ -48,11 +58,10 @@ def ProdFetchData():
         items = []
         for j in range(numItems):
             print("-" * 65)
-            item = {}
-            item["id"] = elInput("Item ID:".ljust(25))
-            item["price"] = elInput("Price:".ljust(25), int)
-            item["quantity"] = elInput("Quantity:".ljust(25), int)
-            items.append(item)
+            id = elInput("Item ID:".ljust(25))
+            quantity = elInput("Quantity:".ljust(25), int)
+            items.append(
+                {"item": db.GetObjectByID(id, 'item', Item), "quantity": quantity})
         print("-" * 65)
         discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
         discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
@@ -80,7 +89,7 @@ if __name__ == '__main__':
         print(ConsoleMsg("Preview"))
         print(cart.GetStrOutput())
 
-    IOWrapper.WriteFileJSON('/output/output.json', cart.GetDict())
+    IOWrapper.WriteFile('/output/output.txt', cart.GetDict())
     WriteFileOption = optInput(
         "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":

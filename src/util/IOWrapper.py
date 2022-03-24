@@ -24,6 +24,7 @@ def WriteFileJSON(filename, data):
         print(f'\nWriting JSON data to {filename}\n')
         outfile.write(json_obj)
 
+
 def WriteFile(filename, data):
     realFilePath = f'/../../{filename}'
     dir = os.path.dirname(__file__) + realFilePath
@@ -31,3 +32,15 @@ def WriteFile(filename, data):
     with open(dir, 'w+') as outfile:
         print(f'\nWriting data to {filename}\n')
         outfile.write(data)
+
+
+def ReadFile(filename):
+    realFilePath = f'/../../{filename}'
+    dir = os.path.dirname(__file__) + realFilePath
+
+    with open(dir) as infile:
+        try:
+            return infile.read()
+        except:
+            print("error in file reading")
+            return None

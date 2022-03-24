@@ -46,7 +46,7 @@ class Order:
     def _CalcSubtotal(self):
         subtotal = 0
         for item in self.items:
-            subtotal += (item['price'] * item['quantity'])
+            subtotal += (item['item'].price * item['quantity'])
         return subtotal
 
     def _CalcDiscounts(self, subtotal):
@@ -58,7 +58,7 @@ class Order:
     def GetHashTotal(self):
         hashTotal = 0
         for item in self.items:
-            hashTotal += int(item['id'])
+            hashTotal += int(item['item'].id)
         return str(hashTotal)
 # endregion
 
@@ -76,12 +76,3 @@ class Order:
              .AddRow(["Hash_Total", self.GetHashTotal()])
 
         return table
-
-    def GetDict(self):
-        JSONObj = {
-            "id": self.orderNum,
-            "staffID": self.staffNum,
-            "items": self.items,
-            "discounts": self.discounts,
-        }
-        return JSONObj

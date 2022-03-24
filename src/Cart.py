@@ -71,9 +71,4 @@ class Cart:
         return fullOutput
 
     def GetDict(self):
-        if not self.hash:
-            self.GenerateTotalHash()
-        orders = []
-        for order in self.orderList:
-            orders.append(order.GetDict())
-        return orders
+        return self.orderList[-1].orderNum

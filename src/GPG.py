@@ -10,7 +10,7 @@ from Cart import Cart
 
 
 def GetLastOrderID():
-    lastOutput = IOWrapper.LoadFileJSON('/output/audit.json')
+    lastOutput = IOWrapper.LoadFileJSON('/output/output.json')
     if not lastOutput:
         print("No previous output is found, defaulting to A-000000\n")
         return 'A-000000'
@@ -69,9 +69,9 @@ if __name__ == '__main__':
         ordersEl = ProdFetchData()
 
     lastOrderID = GetLastOrderID()
-    cart = Cart()
+    cart = Cart(lastOrderID)
     for orderEl in ordersEl:
-        lastOrderID = cart.CreateOrderInCart(lastOrderID, *orderEl)
+        cart.CreateOrder(*orderEl)
 
     previewOption = optInput(
         "Do you want to preview the audit content?", ['y', 'n'])
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         print(ConsoleMsg("Preview"))
         print(cart.GetStrOutput())
 
-    IOWrapper.WriteFileJSON('/output/audit.json', cart.GetJSONObj())
+    IOWrapper.WriteFileJSON('/output/output.json', cart.GetJSONObj())
     WriteFileOption = optInput(
         "Do you want to write to a txt audit file?", ['y', 'n'])
     if WriteFileOption == "y":

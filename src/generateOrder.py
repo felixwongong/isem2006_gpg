@@ -1,3 +1,5 @@
+# This is for data creation during development only
+
 from util import IOWrapper
 import random
 

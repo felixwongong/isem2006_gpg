@@ -21,9 +21,10 @@ def ClampInput(msg, range, type=float):
 
 
 def OptionInput(msg, options, case_sensitive=False):
-    value = ErrorlessInput(f"{msg}  ({', '.join(options)})\n")
+    msg = f"{msg}  ({', '.join(options)})\n"
+    value = ErrorlessInput(msg)
 
-    value = value.lower() if case_sensitive else value
+    value = value.lower() if not case_sensitive else value
     while value not in [opt for opt in options]:
         print(f"Input should be choose between ({', '.join(options)})")
         value = ErrorlessInput(msg)

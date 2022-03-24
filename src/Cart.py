@@ -1,28 +1,45 @@
 from Order import Order
 import hashlib
 from util.TextTable import TextTable
+from util.misc import a2zz
 
 
 class Cart:
-    def __init__(self):
+    def __init__(self, lastOrderNum):
         self.orderList = []
         self.hash = ''
+        print(lastOrderNum)
+        self.orderNum = lastOrderNum
 
-    def CreateOrderInCart(self, prevOrderNum, staffNum, customerNum, items, discounts):
-        orderNum = prevOrderNum
+    def CreateOrder(self, staffNum, customerNum, items, discounts):
         for i in range(0, len(items), 10):
             itemsInOrder = items[i:i+10]
-            order = Order(orderNum, staffNum, customerNum,
+            self.orderNum = Cart._CalcOrderNum(self.orderNum)
+            order = Order(self.orderNum, staffNum, customerNum,
                           itemsInOrder, discounts)
-            orderNum = order.GetOrderNum()
             self._AddOrder(order)
-        return orderNum
 
     def _AddOrder(self, order):
         if(len(self.orderList) >= 10):
             print("List has already full.")
             return
         self.orderList.append(order)
+
+    @staticmethod
+    def _CalcOrderNum(prevNumStr):
+        lead, id = prevNumStr.split('-')
+        id = int(id.strip())
+        if id < 999999:
+            id += 1
+        else:
+            a2zzGen = a2zz()
+            while lead != next(a2zzGen):
+                pass
+            lead = next(a2zzGen)
+            id = 0
+
+        idStr = str(id).rjust(6, '0')
+        return f'{lead}-{idStr}'
 
     def GenerateTotalHash(self):
         orderHash = 0
@@ -46,7 +63,7 @@ class Cart:
         fullOutput = str(table)
 
         for i in range(len(self.orderList)):
-            table = self.orderList[i].GetOutputTable()\
+            table = self.orderList[i].GetAuditTable()\
                                      .AddHeading(f'Order {i} details -- {self.orderList[i].code()}')
             fullOutput += str(table)
         return fullOutput

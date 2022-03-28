@@ -31,10 +31,9 @@ class Order:
             alpha2ModDictionary[alpha]
         return int(checkDigit)
 
-    def GetCustomer(self):
-        print(Customer.name_address(self.customer))
 
 # region Calculate total price of order
+
 
     def GetTotal(self):
         subtotal = self.CalcSubtotal()
@@ -70,11 +69,21 @@ class Order:
 # endregion
 
     def code(self):
+        """Generate order code
+
+        Returns:
+            string: order code 
+        """
         checkDigit = self._FindCheckDigit(self.modMethod)
         lead, idStr = self.orderNum.split('-')
         return f'{lead}{self.staffNum}{self.modMethod}{idStr}{len(self.items)}({checkDigit})'
 
     def GetAuditTable(self):
+        """Generate and return a no heading TextTable which store order audit content (get by Cart)
+
+        Returns:
+            TextTable: order audit content
+        """
         table = TextTable(2, 25)
         table.AddRow(["Order_Number", self.orderNum])\
              .AddRow(["Agency_number", self.staffNum])\

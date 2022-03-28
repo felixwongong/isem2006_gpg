@@ -4,9 +4,9 @@ from util import IOWrapper
 import random
 
 if __name__ == '__main__':
-    peopleData = IOWrapper.LoadFileJSON("/testdata/people.json")
-    itemData = IOWrapper.LoadFileJSON("/testdata/item.json")
-    orderData = IOWrapper.LoadFileJSON("/testdata/order.json")
+    peopleData = IOWrapper.LoadFileJSON("/db/people.json")
+    itemData = IOWrapper.LoadFileJSON("/db/item.json")
+    orderData = IOWrapper.LoadFileJSON("/db/order.json")
     isAppend = input("Do you want to append to existing file? (Y/n) \n")
     mode = 'a' if isAppend.lower() == 'y' else 'w'
     numItems = int(input("How many items do u want to generate?\n"))
@@ -31,6 +31,6 @@ if __name__ == '__main__':
 
     if mode == 'a':
         orderData.append(newOrder)
-        IOWrapper.WriteFileJSON("testdata/order.json", orderData)
+        IOWrapper.WriteFileJSON("db/order.json", orderData)
     else:
-        IOWrapper.WriteFileJSON("testdata/order.json", [newOrder])
+        IOWrapper.WriteFileJSON("db/order.json", [newOrder])

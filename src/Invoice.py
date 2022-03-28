@@ -1,6 +1,5 @@
 from util.consoleInputter import ConsoleMsg
 from util.TextTable import TextTable
-from util import misc
 
 
 class Invoice:

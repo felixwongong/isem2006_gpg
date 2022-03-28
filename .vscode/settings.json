@@ -2,5 +2,7 @@
     "python.analysis.extraPaths": [
         "./util",
         "./src/util"
-    ]
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": false
 }

@@ -11,6 +11,10 @@ from Item import Item
 from Customer import Customer
 from Invoice import Invoice
 
+'''Program method are documented, if need help in any function, use help(<function name>)
+e.g. help(ConsoleMsg)
+'''
+
 
 def GetLastOrderID():
     """Get the last order ID from file using *IOWrapper*, dir: <__dirname__>/output/output.txt

@@ -1,3 +1,5 @@
+import os
+import sys
 from util import IOWrapper, db
 
 
@@ -18,4 +20,7 @@ class Customer:
     @classmethod
     def GetObjectByID(cls, id):
         data = db.GetDataByID(id, 'customer')
+        if not data:
+            print(f"No such customer with id {id}. Program restart")
+            os.execl(sys.executable, sys.executable, *sys.argv)
         return cls(**data)

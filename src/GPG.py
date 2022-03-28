@@ -29,7 +29,7 @@ def DevFetchData():
     """Use to fetch development from db
 
     Returns:
-        list<list<order attributes>>: 
+        list<list>: a list of order attributes
     """
     print('\n' + ConsoleMsg("In development stage") + '\n')
 
@@ -50,6 +50,14 @@ def DevFetchData():
 
 
 def mapItems(orderItems):
+    """Get all item from id inputs (only for development purpose)
+
+    Args:
+        orderItems (list<int>): list of item ids from orders. 
+
+    Returns:
+        list<Item>: all the items from db which have ids same as input
+    """
     items = []
     for orderItem in orderItems:
         item = Item.GetObjectByID(orderItem["id"])
@@ -58,6 +66,11 @@ def mapItems(orderItems):
 
 
 def ProdFetchData():
+    """Draw and get input from users in cli
+
+    Returns:
+        list<list>: a list of order attributes
+    """
     print('\n' + ConsoleMsg("Welcome to Tone Tone mall") + '\n')
     numOrders = cInput("Number of orders:".ljust(25), [0, 10], int)
 
@@ -67,6 +80,7 @@ def ProdFetchData():
         staffID = elInput("staff ID:".ljust(25))
         numItems = elInput("Number of items:".ljust(25), int)
         items = []
+
         for j in range(numItems):
             print("-" * 65)
             id = elInput("Item ID:".ljust(25))
@@ -79,6 +93,7 @@ def ProdFetchData():
 
         customerID = elInput("Customer ID:".ljust(25), int)
         customer = Customer.GetObjectByID(customerID)
+
         ordersEl.append([staffID, customer, items, [discount1, discount2]])
     return ordersEl
 
@@ -86,15 +101,27 @@ def ProdFetchData():
 if __name__ == '__main__':
     ordersEl = []
     env = argv[1:]
+    """
+    Dev mode:   py/python3 src/GPG.py dev
+    Prod mode:  py/python3 src/GPG.py
+    
+    DevFetchData and ProdFetchData both return a list of order attributes
+    DevFetchData will pre-input some data, ProdFetchData require user input data
+    Input with id that not exist in database is not allowed (and will not be catched)
+    """
     if len(env) > 0 and env[0].lower().strip() == 'dev':
         ordersEl = DevFetchData()
     else:
         ordersEl = ProdFetchData()
 
     lastOrderID = GetLastOrderID()
+
+    # Initialize a shopping cart with last orderID
     cart = Cart(lastOrderID)
     for orderEl in ordersEl:
+        # Add orders' detail into cart, and let cart to create the order
         order = cart.CreateOrder(*orderEl)
+
         InvoiceOption = optInput(
             "Do you want to check the invoice?", ['y', 'n'])
         if InvoiceOption == "y":

@@ -9,10 +9,5 @@ def GetDataByID(id, filename):
             return data
 
 
-def GetObjectByID(id, filename, type):
-    data = GetDataByID(id, filename)
-    return type(**data)
-
-
 def GetAllData(filename):
     return IOWrapper.LoadFileJSON(f'/testdata/{filename}.json')

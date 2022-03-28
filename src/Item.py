@@ -1,7 +1,6 @@
-from re import L
-
-
 from util import db
+import sys
+import os
 
 
 class Item:
@@ -16,4 +15,7 @@ class Item:
     @classmethod
     def GetObjectByID(cls, id):
         data = db.GetDataByID(id, 'item')
+        if not data:
+            print(f"No such item with id {id}. Program restart")
+            os.execl(sys.executable, sys.executable, *sys.argv)
         return cls(**data)

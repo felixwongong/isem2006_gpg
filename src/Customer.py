@@ -1,4 +1,4 @@
-from util import IOWrapper
+from util import IOWrapper, db
 
 
 class Customer:
@@ -14,3 +14,8 @@ class Customer:
         for people in peopleData:
             if people['id'] == customer_number:
                 return (people['name'], people['address'])
+
+    @classmethod
+    def GetObjectByID(cls, id):
+        data = db.GetDataByID(id, 'customer')
+        return cls(**data)

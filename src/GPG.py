@@ -13,6 +13,11 @@ from Invoice import Invoice
 
 
 def GetLastOrderID():
+    """Get the last order ID from file using *IOWrapper*, dir: <__dirname__>/output/output.txt
+
+    Returns:
+        string: string of last order ID, if not ID found, default return "A-000000" 
+    """
     lastOutput = IOWrapper.ReadFile('/output/output.txt')
     if not lastOutput:
         print("No previous output is found, defaulting to A-000000\n")
@@ -21,10 +26,14 @@ def GetLastOrderID():
 
 
 def DevFetchData():
+    """Use to fetch development from db
+
+    Returns:
+        list<list<order attributes>>: 
+    """
     print('\n' + ConsoleMsg("In development stage") + '\n')
 
     orderData = db.GetAllData('order')
-    customerData = db.GetAllData('customer')
 
     numOrders = cInput('How many orders you want to test?\t', [
                        1, len(orderData)], int)
@@ -35,7 +44,7 @@ def DevFetchData():
             'staffID', "customerID", "items", "discounts")(orderData[i])
 
         items = mapItems(orderItems)
-        customer = db.GetObjectByID(customerID, 'customer', Customer)
+        customer = Customer.GetObjectByID(customerID)
         ordersEl.append([staffID, customer, items, discounts])
     return ordersEl
 
@@ -43,7 +52,7 @@ def DevFetchData():
 def mapItems(orderItems):
     items = []
     for orderItem in orderItems:
-        item = db.GetObjectByID(orderItem['id'], 'item', Item)
+        item = Item.GetObjectByID(orderItem["id"])
         items.append({"item": item, "quantity": orderItem['quantity']})
     return items
 
@@ -63,13 +72,13 @@ def ProdFetchData():
             id = elInput("Item ID:".ljust(25))
             quantity = elInput("Quantity:".ljust(25), int)
             items.append(
-                {"item": db.GetObjectByID(id, 'item', Item), "quantity": quantity})
+                {"item": Item.GetObjectByID(id), "quantity": quantity})
         print("-" * 65)
         discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
         discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
 
         customerID = elInput("Customer ID:".ljust(25), int)
-        customer = db.GetObjectByID(customerID, 'customer', Customer)
+        customer = Customer.GetObjectByID(customerID)
         ordersEl.append([staffID, customer, items, [discount1, discount2]])
     return ordersEl
 

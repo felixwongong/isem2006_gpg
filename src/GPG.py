@@ -16,21 +16,11 @@ e.g. help(ConsoleMsg)
 '''
 
 
-def GetLastOrderID():
-    """Get the last order ID from file using *IOWrapper*, dir: <__dirname__>/output/output.txt
-
-    Returns:
-        string: string of last order ID, if not ID found, default return "A-000000" 
-    """
-    lastOutput = IOWrapper.ReadFile('/output/output.txt')
-    if not lastOutput:
-        print("No previous output is found, defaulting to A-000000\n")
-        return 'A-000000'
-    return lastOutput
+# region Development Environment
 
 
 def DevFetchData():
-    """Use to fetch development from db
+    """Use to fetch development data from db
 
     Returns:
         list<list>: a list of order attributes
@@ -67,6 +57,7 @@ def mapItems(orderItems):
         item = Item.GetObjectByID(orderItem["id"])
         items.append({"item": item, "quantity": orderItem['quantity']})
     return items
+# endregion
 
 
 def ProdFetchData():
@@ -100,6 +91,19 @@ def ProdFetchData():
 
         ordersEl.append([staffID, customer, items, [discount1, discount2]])
     return ordersEl
+
+
+def GetLastOrderID():
+    """Get the last order ID from file using *IOWrapper*, dir: <__dirname__>/output/output.txt
+
+    Returns:
+        string: string of last order ID, if not ID found, default return "A-000000" 
+    """
+    lastOutput = IOWrapper.ReadFile('/output/output.txt')
+    if not lastOutput:
+        print("No previous output is found, defaulting to A-000000\n")
+        return 'A-000000'
+    return lastOutput
 
 
 if __name__ == '__main__':

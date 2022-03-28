@@ -3,6 +3,14 @@ import os
 
 
 def LoadFileJSON(filename):
+    """Load JSON file with path start from root directory
+
+    Args:
+        filename (string): file path in program directory, e.g. /db/items.json
+
+    Returns:
+        list<...dict>: list(s) of dict of file content
+    """
     realFilePath = f'/../../{filename}'
     dir = os.path.dirname(__file__) + realFilePath
     try:
@@ -16,6 +24,12 @@ def LoadFileJSON(filename):
 
 
 def WriteFileJSON(filename, data):
+    """Write JSON file with path start from root directory
+
+    Args:
+        filename (string): file path in program directory, e.g. /db/items.json
+    """
+
     realFilePath = f'/../../{filename}'
     dir = os.path.dirname(__file__) + realFilePath
 
@@ -26,6 +40,12 @@ def WriteFileJSON(filename, data):
 
 
 def WriteFile(filename, data):
+    """Write file with path start from root directory
+
+    Args:
+        filename (string): file path in program directory, e.g. /output/output.txt
+    """
+
     realFilePath = f'/../../{filename}'
     dir = os.path.dirname(__file__) + realFilePath
 
@@ -35,6 +55,15 @@ def WriteFile(filename, data):
 
 
 def ReadFile(filename):
+    """Load file with path start from root directory
+
+    Args:
+        filename (string): file path in program directory, e.g. /db/items.txt
+
+    Returns:
+        string: file content
+    """
+
     realFilePath = f'/../../{filename}'
     dir = os.path.dirname(__file__) + realFilePath
 

@@ -29,18 +29,15 @@ def DevFetchData():
 
     orderData = db.GetAllData('order')
 
-    numOrders = cInput('How many orders you want to test?\t', [
-                       1, len(orderData)], int)
-    ordersEl = []
+    orderNum = cInput('Which orders you want to test?\t', [
+        0, len(orderData) - 1], int)
 
-    for i in range(numOrders):
-        staffID, customerID, orderItems, discounts = itemgetter(
-            'staffID', "customerID", "items", "discounts")(orderData[i])
+    staffID, customerID, orderItems, discounts = itemgetter(
+        'staffID', "customerID", "items", "discounts")(orderData[orderNum])
 
-        items = mapItems(orderItems)
-        customer = Customer.GetObjectByID(customerID)
-        ordersEl.append([staffID, customer, items, discounts])
-    return ordersEl
+    items = mapItems(orderItems)
+    customer = Customer.GetObjectByID(customerID)
+    return [staffID, customer, items, discounts]
 
 
 def mapItems(orderItems):
@@ -64,33 +61,28 @@ def ProdFetchData():
     """Draw and get input from users in cli
 
     Returns:
-        list<list>: a list of order attributes
+        list: a list of order attributes
     """
-    print('\n' + ConsoleMsg("Welcome to Tone Tone mall") + '\n')
-    numOrders = cInput("Number of orders:".ljust(25), [0, 10], int)
 
-    ordersEl = []
-    for i in range(numOrders):
-        print(misc.Heading(f"Order {i + 1}"))
-        staffID = elInput("staff ID:".ljust(25))
-        numItems = elInput("Number of items:".ljust(25), int)
-        items = []
+    print(misc.Heading(f"Order"))
+    staffID = elInput("staff ID:".ljust(25))
+    numItems = elInput("Number of items:".ljust(25), int)
+    items = []
 
-        for j in range(numItems):
-            print("-" * 65)
-            id = elInput("Item ID:".ljust(25))
-            quantity = elInput("Quantity:".ljust(25), int)
-            items.append(
-                {"item": Item.GetObjectByID(id), "quantity": quantity})
+    for j in range(numItems):
         print("-" * 65)
-        discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
-        discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
+        id = elInput("Item ID:".ljust(25))
+        quantity = elInput("Quantity:".ljust(25), int)
+        items.append(
+            {"item": Item.GetObjectByID(id), "quantity": quantity})
+    print("-" * 65)
+    discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
+    discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
 
-        customerID = elInput("Customer ID:".ljust(25), int)
-        customer = Customer.GetObjectByID(customerID)
+    customerID = elInput("Customer ID:".ljust(25), int)
+    customer = Customer.GetObjectByID(customerID)
 
-        ordersEl.append([staffID, customer, items, [discount1, discount2]])
-    return ordersEl
+    return [staffID, customer, items, [discount1, discount2]]
 
 
 def GetLastOrderID():
@@ -107,8 +99,8 @@ def GetLastOrderID():
 
 
 if __name__ == '__main__':
-    ordersEl = []
-    env = argv[1:]
+    orderEl = []
+    env = argv[1:]  # [1:] from 1 to the end of the list
     """
     Dev mode:   py/python3 src/GPG.py dev
     Prod mode:  py/python3 src/GPG.py
@@ -117,21 +109,22 @@ if __name__ == '__main__':
     DevFetchData will pre-input some data, ProdFetchData require user input data
     Input with id that not exist in database is not allowed (and will not be catched)
     """
+
     if len(env) > 0 and env[0].lower().strip() == 'dev':
-        ordersEl = DevFetchData()
+        orderEl = DevFetchData()
     else:
-        ordersEl = ProdFetchData()
+        orderEl = ProdFetchData()
 
     lastOrderID = GetLastOrderID()
 
     # Initialize a shopping cart with last orderID
     cart = Cart(lastOrderID)
-    for orderEl in ordersEl:
-        # Add orders' detail into cart, and let cart to create the order
-        order = cart.CreateOrder(*orderEl)
+    # Add orders' detail into cart, and let cart to create the order
+    orderList = cart.CreateOrder(*orderEl)
 
+    for order in orderList:
         InvoiceOption = optInput(
-            "Do you want to check the invoice?", ['y', 'n'])
+            f"Do you want to check the invoice for order {order.code()} ?", ['y', 'n'])
         if InvoiceOption == "y":
             print(Invoice.GetInvoice(order))
 

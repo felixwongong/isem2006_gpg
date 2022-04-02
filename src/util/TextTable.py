@@ -11,7 +11,7 @@ class TextTable:
         self.colNum = colNum
         self.heading = ''
 
-    def __str__(self):
+    def __str__(self):  # Dunder method
         """Table output as string when str(Textable)
 
         Returns:

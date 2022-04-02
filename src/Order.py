@@ -90,5 +90,4 @@ class Order:
              .AddRow(["Modulus_number", self._FindCheckDigit(self.modMethod)])\
              .AddRow(["Total", self.GetTotal()])\
              .AddRow(["Hash_Total", self.GetHashTotal()])
-
         return table

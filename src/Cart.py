@@ -19,7 +19,7 @@ class Cart:
             order = Order(self.orderNum, staffNum, customer,
                           itemsInOrder, discounts)
             self._AddOrder(order)
-            return order
+        return self.orderList
 
     def _AddOrder(self, order):
         """Add order in Cart's orderList, if orderList full, it will be dump automatically

@@ -44,7 +44,7 @@ def mapItems(orderItems):
     """Get all item from id inputs (only for development purpose)
 
     Args:
-        orderItems (list<int>): list of item ids from orders. 
+        orderItems (list<int>): list of item ids from orders.
 
     Returns:
         list<Item>: all the items from db which have ids same as input
@@ -64,6 +64,8 @@ def ProdFetchData():
         list: a list of order attributes
     """
 
+    print('\n' + ConsoleMsg("Welcome to Tone Tone Mall"))
+
     print(misc.Heading(f"Order"))
     staffID = elInput("staff ID:".ljust(25))
     numItems = elInput("Number of items:".ljust(25), int)
@@ -76,8 +78,8 @@ def ProdFetchData():
         items.append(
             {"item": Item.GetObjectByID(id), "quantity": quantity})
     print("-" * 65)
-    discount1 = cInput("Discount 1:".ljust(25), [0.0, 0.01])
-    discount2 = cInput("Discount 2:".ljust(25), [0.0, 0.05])
+    discount1 = elInput("Discount < 1% subtotal:".ljust(25), float)
+    discount2 = cInput("Discount 2 (%):".ljust(25), [0.0, 5]) / 100
 
     customerID = elInput("Customer ID:".ljust(25), int)
     customer = Customer.GetObjectByID(customerID)
@@ -89,7 +91,7 @@ def GetLastOrderID():
     """Get the last order ID from file using *IOWrapper*, dir: <__dirname__>/output/output.txt
 
     Returns:
-        string: string of last order ID, if not ID found, default return "A-000000" 
+        string: string of last order ID, if not ID found, default return "A-000000"
     """
     lastOutput = IOWrapper.ReadFile('/output/output.txt')
     if not lastOutput:
@@ -104,29 +106,32 @@ if __name__ == '__main__':
     """
     Dev mode:   py/python3 src/GPG.py dev
     Prod mode:  py/python3 src/GPG.py
-    
+
     DevFetchData and ProdFetchData both return a list of order attributes
     DevFetchData will pre-input some data, ProdFetchData require user input data
     Input with id that not exist in database is not allowed (and will not be catched)
     """
+    # Initialize a shopping cart with last orderID
+    lastOrderID = GetLastOrderID()
+    cart = Cart(lastOrderID)
 
+    # Get order data, from prestored(Dev), or user-inputted(Prod) data
     if len(env) > 0 and env[0].lower().strip() == 'dev':
         orderEl = DevFetchData()
     else:
         orderEl = ProdFetchData()
 
-    lastOrderID = GetLastOrderID()
+    # Add order detail into cart, and let cart to create the order
+    cart.CreateOrder(*orderEl)
 
-    # Initialize a shopping cart with last orderID
-    cart = Cart(lastOrderID)
-    # Add orders' detail into cart, and let cart to create the order
-    orderList = cart.CreateOrder(*orderEl)
+    # Let user to check the cart invoice
+    invoiceOption = optInput(
+        f"Do you want to check the invoice for this cart order(s)?", ['y', 'n'])
+    if invoiceOption == "y":
+        invoice = cart.GenerateInvoice()
+        print(invoice)
 
-    for order in orderList:
-        InvoiceOption = optInput(
-            f"Do you want to check the invoice for order {order.code()} ?", ['y', 'n'])
-        if InvoiceOption == "y":
-            print(Invoice.GetInvoice(order))
+    IOWrapper.WriteFile('/output/invoice.txt', invoice)
 
     IOWrapper.WriteFile('/output/output.txt', cart.orderNum)
     WriteFileOption = optInput(

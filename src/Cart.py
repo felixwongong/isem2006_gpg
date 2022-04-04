@@ -1,4 +1,5 @@
 from Order import Order
+from Invoice import Invoice
 import hashlib
 from util.TextTable import TextTable
 from util.misc import a2zz
@@ -19,7 +20,6 @@ class Cart:
             order = Order(self.orderNum, staffNum, customer,
                           itemsInOrder, discounts)
             self._AddOrder(order)
-        return self.orderList
 
     def _AddOrder(self, order):
         """Add order in Cart's orderList, if orderList full, it will be dump automatically
@@ -56,6 +56,12 @@ class Cart:
         idStr = str(id).rjust(6, '0')
         return f'{lead}-{idStr}'
 # endregion
+
+    def GenerateInvoice(self):
+        invoiceContent = ''
+        for order in self.orderList:
+            invoiceContent += Invoice.GetInvoice(order)
+        return invoiceContent
 
     def GenerateTotalHash(self):
         """

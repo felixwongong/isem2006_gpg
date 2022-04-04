@@ -6,7 +6,7 @@ class Invoice:
     @staticmethod
     def GetInvoice(order):
         invoice = ''
-        invoice += ConsoleMsg("Invoice")
+        invoice += "\n" + ConsoleMsg("Invoice")
         invoice += str(TextTable(3, 25)
                        .AddRow(['Invoice Date', "Order No.", "Mall Dollar"])
                        .AddRow([order.date, order.code(), f"${order.mall()}"]))
@@ -24,8 +24,8 @@ class Invoice:
                        .AddRow([f"Customer Address:", order.customer.address])
                        .AddRow([f"", ""])
                        .AddRow([f"SubTotal:", subtotal])
-                       .AddRow([f"Discount1:", order.discounts[0] * subtotal])
-                       .AddRow([f"Discount2:", order.discounts[1] * subtotal])
+                       .AddRow([f"Discount1:", round(order.discounts[0], 2)])
+                       .AddRow([f"Discount2:", round(order.discounts[1] * subtotal, 2)])
                        .AddRow([f"Delivery Fee:", order.delivery()])
                        .AddRow(["Total", order.GetTotal()]))
 

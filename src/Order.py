@@ -34,7 +34,6 @@ class Order:
 
 # region Calculate total price of order
 
-
     def GetTotal(self):
         subtotal = self.CalcSubtotal()
         delivery = 0 if subtotal >= 600 else 50
@@ -48,9 +47,12 @@ class Order:
         return subtotal
 
     def CalcDiscounts(self, subtotal):
+        if self.discounts[0] > subtotal * 0.01:
+            print(
+                "Discount 1 is more than 1 percent of subtotal, will set to 0 by default")
+            self.discounts[0] = 0
         discountAmount = 0
-        for discount in self.discounts:
-            discountAmount += subtotal * discount
+        discountAmount += self.discounts[0] + subtotal * self.discounts[1]
         return discountAmount
 
     def GetHashTotal(self):

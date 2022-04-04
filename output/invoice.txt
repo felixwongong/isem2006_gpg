@@ -1,0 +1,24 @@
+
+-----------------------------------------------------------------
+|                            Invoice                            |
+-----------------------------------------------------------------
+Invoice Date             Order No.                Mall Dollar              
+2022-04-04               A121212A0000443(6)       $2.1                     
+
+Customer Number: 135234
+-----------------------
+0407               Chocolate          3                  30                 
+0934               Guitar             1                  700                
+9843               Coffee             5                  350                
+
+Shipping to
+-----------
+Customer Number:         Felix                    
+Customer Address:        123 Main St              
+                                                  
+SubTotal:                1080                     
+Discount1:               10.0                     
+Discount2:               43.2                     
+Delivery Fee:            0                        
+Total                    1026.8                   
+

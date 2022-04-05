@@ -74,5 +74,91 @@
             200,
             0.05
         ]
+    },
+    {
+        "staffID": "909090",
+        "customerID": "653247",
+        "items": [
+            {
+                "id": "0934",
+                "quantity": 2
+            },
+            {
+                "id": "1234",
+                "quantity": 2
+            },
+            {
+                "id": "9843",
+                "quantity": 5
+            },
+            {
+                "id": "1732",
+                "quantity": 1
+            },
+            {
+                "id": "1385",
+                "quantity": 3
+            }
+        ],
+        "discounts": [
+            20,
+            0.02
+        ]
+    },
+    {
+        "staffID": "121212",
+        "customerID": "235689",
+        "items": [
+            {
+                "id": "1732",
+                "quantity": 1
+            },
+            {
+                "id": "1052",
+                "quantity": 1
+            },
+            {
+                "id": "2945",
+                "quantity": 5
+            },
+            {
+                "id": "8275",
+                "quantity": 10
+            }
+        ],
+        "discounts": [
+            100,
+            0.05
+        ]
+    },
+    {
+        "staffID": "161616",
+        "customerID": "812388",
+        "items": [
+            {
+                "id": "2945",
+                "quantity": 50
+            },
+            {
+                "id": "9571",
+                "quantity": 2
+            },
+            {
+                "id": "0934",
+                "quantity": 1
+            },
+            {
+                "id": "1732",
+                "quantity": 2
+            },
+            {
+                "id": "1385",
+                "quantity": 5
+            }
+        ],
+        "discounts": [
+            50,
+            0.01
+        ]
     }
 ]

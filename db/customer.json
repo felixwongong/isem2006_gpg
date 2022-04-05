@@ -13,5 +13,15 @@
         "id": "653247",
         "name": "Whiskey",
         "address": "555 Main Street"
+    },
+    {
+        "id": "235689",
+        "name": "Caris",
+        "address": "222 High Street"        
+    },
+    {
+        "id": "812388",
+        "name": "Nilton",
+        "address": "10 High Street"            
     }
 ]

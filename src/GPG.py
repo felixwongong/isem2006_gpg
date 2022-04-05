@@ -1,5 +1,6 @@
 from operator import itemgetter
 from sys import argv
+import sys
 from util import IOWrapper, misc, db
 from util.consoleInputter import\
     ErrorlessInput as elInput,\
@@ -100,7 +101,7 @@ def GetLastOrderID():
     return lastOutput
 
 
-if __name__ == '__main__':
+def main():
     orderEl = []
     env = argv[1:]  # [1:] from 1 to the end of the list
     """
@@ -139,3 +140,13 @@ if __name__ == '__main__':
     if WriteFileOption == "y":
         IOWrapper.WriteFile('/output/audit.txt', cart.GetStrOutput())
     print("Byebye~")
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nSession ended by user")
+        sys.exit(0)
+    except Exception as e:
+        print("Some error occured. Suggested to restart a session")

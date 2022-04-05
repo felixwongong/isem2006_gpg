@@ -3,22 +3,51 @@
 |                            Invoice                            |
 -----------------------------------------------------------------
 Invoice Date             Order No.                Mall Dollar              
-2022-04-04               A121212A0000443(6)       $2.1                     
+2022-04-05               A656565A00004510(4)      $15.9                    
 
-Customer Number: 135234
+Customer Number: 098765
 -----------------------
-0407               Chocolate          3                  30                 
+2365               Toy                1                  300                
+3581               Air cleaner        1                  400                
+1052               IPhone             1                  3000               
 0934               Guitar             1                  700                
-9843               Coffee             5                  350                
+9571               T-Shirt            7                  630                
+1234               Apple              5                  25                 
+9843               Coffee             6                  420                
+9361               Camera             1                  2000               
+8275               Figure             1                  700                
+1732               Water bottle       1                  200                
 
 Shipping to
 -----------
-Customer Number:         Felix                    
-Customer Address:        123 Main St              
+Customer Number:         Berkley                  
+Customer Address:        456 Main Street          
                                                   
-SubTotal:                1080                     
-Discount1:               10.0                     
-Discount2:               43.2                     
+SubTotal:                8375                     
+Discount1:               0                        
+Discount2:               418.75                   
 Delivery Fee:            0                        
-Total                    1026.8                   
+Total                    7956.2                   
+
+
+-----------------------------------------------------------------
+|                            Invoice                            |
+-----------------------------------------------------------------
+Invoice Date             Order No.                Mall Dollar              
+2022-04-05               A656565B0000461(2)       $0                       
+
+Customer Number: 098765
+-----------------------
+1385               Glove              5                  150                
+
+Shipping to
+-----------
+Customer Number:         Berkley                  
+Customer Address:        456 Main Street          
+                                                  
+SubTotal:                150                      
+Discount1:               0                        
+Discount2:               7.5                      
+Delivery Fee:            50                       
+Total                    192.5                    
 

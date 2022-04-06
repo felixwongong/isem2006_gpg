@@ -1,3 +1,9 @@
+"""
+ISEM2006 Section 1 Group G
+WONG Ching Ching 20202628
+WONG Yuen Lam    19224966
+"""
+
 from operator import itemgetter
 from sys import argv
 import sys
@@ -10,7 +16,6 @@ from util.consoleInputter import\
 from Cart import Cart
 from Item import Item
 from Customer import Customer
-from Invoice import Invoice
 
 '''Program method are documented, if need help in any function, use help(<function name>)
 e.g. help(ConsoleMsg)

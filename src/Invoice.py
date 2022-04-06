@@ -20,7 +20,7 @@ class Invoice:
         subtotal = order.CalcSubtotal()
         invoice += str(TextTable(2, 25)
                        .AddHeading("Shipping to")
-                       .AddRow([f"Customer Number:", order.customer.name])
+                       .AddRow([f"Customer Name:", order.customer.name])
                        .AddRow([f"Customer Address:", order.customer.address])
                        .AddRow([f"", ""])
                        .AddRow([f"SubTotal:", subtotal])
